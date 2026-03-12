@@ -1,0 +1,139 @@
+# Docker Learning – Day 1
+
+## Date
+
+12 March 2026
+
+## Objective
+
+To understand the basics of Docker, explore Docker images, and run simple containers using the Apache HTTP server image.
+
+---
+
+## 1. Verifying Docker Installation
+
+First, I checked whether Docker was installed correctly on my system.
+
+```bash
+docker --version
+```
+
+Output:
+
+```
+Docker version 29.2.1, build a5c7197
+```
+
+This confirms that Docker is installed and working properly.
+
+---
+
+## 2. Inspecting Image Layers
+
+To understand how Docker images are built, I used the following command:
+
+```bash
+docker history httpd
+```
+
+This command shows the different layers that make up the `httpd` image.
+Each layer represents a step used to build the image, such as setting environment variables, copying files, or installing packages.
+
+Example layers observed:
+
+```
+CMD ["httpd-foreground"]
+EXPOSE 80
+COPY httpd-foreground /usr/local/bin/
+RUN apt-get install ...
+ENV HTTPD_VERSION=2.4.66
+```
+
+This helped me understand that Docker images are constructed in layers, and each instruction in a Dockerfile creates a new layer.
+
+---
+
+## 3. Pulling an Image from Docker Hub
+
+Next, I pulled the official Apache HTTP server image from Docker Hub.
+
+```bash
+docker pull httpd
+```
+
+Output indicated that the image was already up to date:
+
+```
+Status: Image is up to date for httpd:latest
+```
+
+This means the latest version of the image is available locally.
+
+---
+
+## 4. Running a Container
+
+To see how containers execute commands, I ran the following command:
+
+```bash
+docker run httpd echo "hello world!"
+```
+
+Output:
+
+```
+hello world!
+```
+
+In this case, Docker started a container from the `httpd` image, executed the command, printed the result, and then stopped the container.
+
+---
+
+## 5. Running a Container with a Name
+
+I also tried creating a container with a custom name.
+
+```bash
+docker run --name my_container httpd echo "hello world!"
+```
+
+Output:
+
+```
+hello world!
+```
+
+Naming containers can make them easier to manage later when starting, stopping, or viewing logs.
+
+---
+
+## Key Takeaways
+
+* Docker images are built in layers.
+* Images can be downloaded from Docker Hub using `docker pull`.
+* Containers are created from images and run commands.
+* Containers can be given names for easier management.
+
+---
+
+## Commands Practiced
+
+| Command                                | Purpose                               |
+| -------------------------------------- | ------------------------------------- |
+| `docker --version`                     | Check Docker installation             |
+| `docker history httpd`                 | View layers of an image               |
+| `docker pull httpd`                    | Download an image from Docker Hub     |
+| `docker run httpd echo "hello world!"` | Run a container and execute a command |
+| `docker run --name my_container httpd` | Run a container with a specific name  |
+
+---
+
+## Next Steps
+
+For the next session, I plan to explore:
+
+* Listing containers using `docker ps`
+* Starting and stopping containers
+* Running containers in detached mode
+* Port mapping with Docker
+* Accessing services from a container through the browser
