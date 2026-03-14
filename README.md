@@ -1,1 +1,1 @@
-# devops-practise
+# devops-practice
